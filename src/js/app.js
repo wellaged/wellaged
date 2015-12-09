@@ -66,7 +66,7 @@ var AppView = Backbone.View.extend({
             snapLinks: { radius: 75 },
             validateConnection: function(cellViewS, magnetS, cellViewT, magnetT, end, linkView) {
                 // Prevent linking from input ports.
-                if (magnetS && magnetS.getAttribute('type') === 'input') return false;
+                if (magnetS && magnetS.getAttribute('port') === 'in') return false;
                 // Prevent linking from output ports to input ports within one element.
                 if (cellViewS === cellViewT) return false;
                 // Prevent linking to input ports.
