@@ -1,6 +1,8 @@
 import {V, g} from 'jointjs';
 import * as joint from 'jointjs';
 import _ from 'lodash';
+import {measureText} from './util';
+
 
 joint.shapes.qad = joint.shapes.qad || {};
 joint.shapes.qad.Answer = joint.shapes.basic.Generic.extend({
@@ -35,38 +37,6 @@ joint.shapes.qad.Answer = joint.shapes.basic.Generic.extend({
     }
 });
 
-joint.util.measureText = function(text, attrs) {
-
-    var fontSize = parseInt(attrs.fontSize, 10) || 10;
-
-    var svgDocument = V('svg').node;
-    var textElement = V('<text><tspan></tspan></text>').node;
-    var textSpan = textElement.firstChild;
-    var textNode = document.createTextNode('');
-
-    textSpan.appendChild(textNode);
-    svgDocument.appendChild(textElement);
-    document.body.appendChild(svgDocument);
-
-    var lines = text.split('\n');
-    var width = 0;
-
-    // Find the longest line width.
-    _.each(lines, function(line) {
-
-        textNode.data = line;
-        var lineWidth = textSpan.getComputedTextLength();
-
-        width = Math.max(width, lineWidth);
-    });
-
-    var height = lines.length * (fontSize * 1.2);
-
-    V(svgDocument).remove();
-
-    return { width: width, height: height };
-};
-
 joint.shapes.qad.AnswerView = joint.dia.ElementView.extend({
 
     initialize: function() {
@@ -78,7 +48,7 @@ joint.shapes.qad.AnswerView = joint.dia.ElementView.extend({
 
     autoresize: function() {
 
-        var dim = joint.util.measureText(this.model.get('answer'), {
+        var dim = measureText(this.model.get('answer'), {
             fontSize: this.model.attr('text/font-size')
         });
         this.model.resize(dim.width + 50, dim.height + 50);
@@ -132,7 +102,7 @@ joint.shapes.qad.Question = joint.shapes.basic.Generic.extend(_.extend({}, joint
             },
             '.port-label': {
                 'pointer-events': 'none'
-            },
+           },
             '.option-port': {
                 ref: '.body', 'ref-dx': 0, 'y-alignment': 15
             },
@@ -228,7 +198,7 @@ joint.shapes.qad.Question = joint.shapes.basic.Generic.extend(_.extend({}, joint
         var options = this.get('options') || [];
         var gap = this.get('paddingBottom') || 20;
         var height = options.length * this.get('optionHeight') + this.get('questionHeight') + gap;
-        var width = joint.util.measureText(this.get('question'), {
+        var width = measureText(this.get('question'), {
             fontSize: this.attr('.question-text/font-size')
         }).width;
         this.resize(Math.max(this.get('minWidth') || 150, width), height);

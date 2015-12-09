@@ -10,8 +10,9 @@ var AppView = Backbone.View.extend({
     el: '#app',
 
     events: {
-        'click #toolbar .add-question': 'addQuestion',
-        'click #toolbar .add-answer': 'addAnswer',
+        'click #toolbar .add-issue': 'addIssue',
+        'click #toolbar .add-argument': 'addArgument',
+        'click #toolbar .add-statement': 'addStatement',
         'click #toolbar .preview-dialog': 'previewDialog',
         'click #toolbar .code-snippet': 'showCodeSnippet',
         'click #toolbar .load-example': 'loadExample',
@@ -19,11 +20,8 @@ var AppView = Backbone.View.extend({
     },
 
     initialize: function() {
-
         this.initializePaper();
         this.initializeSelection();
-
-        this.loadExample();
     },
 
     initializeSelection: function() {
@@ -109,33 +107,23 @@ var AppView = Backbone.View.extend({
         this.$('#statusbar .message').text(m);
     },
 
-    addQuestion: function() {
+    addIssue: function() {
 
-        var q = Factory.createQuestion('Question');
+        var q = Factory.createIssue('i3: PE');
         this.graph.addCell(q);
-        this.status('Question added.');
+        this.status('Issue added.');
     },
 
-    addAnswer: function() {
-
-        var a = Factory.createAnswer('Answer');
+    addArgument: function() {
+        var a = Factory.createArgument('Argument.');
         this.graph.addCell(a);
-        this.status('Answer added.');
+        this.status('Argument added.');
     },
 
-    previewDialog: function() {
-
-        var cell = this.selection.first();
-        var el = qad.renderDialog(Factory.createDialogJSON(this.graph, cell));
-
-        $('#preview').empty();
-        $('#preview').append($('<div>', { 'class': 'background' }));
-        $('#preview').append(el).show();
-
-        $('#preview .background').on('click', function() {
-
-            $('#preview').empty();
-        });
+    addStatement: function() {
+        let a = Factory.createStatement('Statement');
+        this.graph.addCell(a);
+        this.status('Statement added.');
     },
 
     loadExample: function() {
@@ -146,35 +134,8 @@ var AppView = Backbone.View.extend({
     clear: function() {
 
         this.graph.clear();
-    },
-
-    showCodeSnippet: function() {
-
-        var cell = this.selection.first();
-        var dialog = Factory.createDialogJSON(this.graph, cell);
-
-        var id = _.uniqueId('qad-dialog-');
-
-        var snippet = '';
-        snippet += '<div id="' + id + '"></div>';
-        snippet += '<link rel="stylesheet" type="text/css" href="http://qad.client.io/css/snippet.css"></script>';
-        snippet += '<script type="text/javascript" src="http://qad.client.io/src/snippet.js"></script>';
-        snippet += '<script type="text/javascript">';
-        snippet += 'document.getElementById("' + id + '").appendChild(qad.renderDialog(' + JSON.stringify(dialog) + '))';
-        snippet += '</script>';
-
-        var content = '<textarea>' + snippet + '</textarea>';
-
-        var dialog = new joint.ui.Dialog({
-            width: '50%',
-            height: 200,
-            draggable: true,
-            title: 'Copy-paste this snippet to your HTML page.',
-            content: content
-        });
-
-        dialog.open();
     }
+
 });
 
 export default AppView;

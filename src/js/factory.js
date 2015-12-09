@@ -1,31 +1,35 @@
 import * as joint from 'jointjs';
 
 import './shapes';
-
+import './shapes/statement';
+import './shapes/issue';
+import './shapes/argument';
 
 var Factory = {
 
-    createQuestion: function(text) {
-
-        var q = new joint.shapes.qad.Question({
+    createIssue: function(text) {
+      let s = new joint.shapes.wellaged.Issue({
             position: { x: 400 - 50, y: 30 },
             size: { width: 100, height: 70 },
-            question: text,
-            inPorts: [{ id: 'in', label: 'In' }],
-            options: [
-                { id: 'yes', text: 'Yes' },
-                { id: 'no', text: 'No' }
-            ]
-        });
-        return q;
+            issue: text
+      });
+      return s;
     },
 
-    createAnswer: function(text) {
-
-        var a = new joint.shapes.qad.Answer({
+    createStatement: function(text) {
+      let s = new joint.shapes.wellaged.Statement({
             position: { x: 400 - 50, y: 30 },
             size: { width: 100, height: 70 },
-            answer: text
+            statement: text
+      });
+      return s;
+    },
+
+    createArgument: function(text) {
+        let a = new joint.shapes.wellaged.Argument({
+            position: { x: 400 - 50, y: 30 },
+            size: { width: 100, height: 70 },
+            argument: text
         });
         return a;
     },
@@ -101,3 +105,5 @@ var Factory = {
         return dialog;
     }
 };
+
+export default Factory;
