@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is WellAGEd.</title>
+    <link rel="stylesheet" href="css/app.css" charset="utf-8">
+</head>
+<body>
+
+      <section id="app">
+
+        <div id="toolbar">
+          <button class="btn add-question">Add Question</button>
+          <button class="btn add-answer">Add Answer</button>
+          <button class="btn preview-dialog">Preview Dialog</button>
+          <button class="btn code-snippet">Code Snippet</button>
+          <button class="btn clear">Clear Canvas</button>
+          <button class="btn load-example">Load Example</button>
+        </div>
+
+        <div id="paper"></div>
+
+        <div id="statusbar">
+          <span class="message">Welcome to the QAD Tool!</span>
+        </div>
+
+        <div id="preview" class="preview">
+        </div>
+
+      </section>
+    <script src="lib/system.js"></script>
+    <script src="config.js"></script>
+    <script>System.import('./js/index')</script>
+</body>
+</html>

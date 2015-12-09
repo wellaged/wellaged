@@ -1,0 +1,36 @@
+#header {
+    height: 30px;
+    background-color: #F6F6F6;
+    color: #696c8a;
+    text-align: center;
+}
+#header h1 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    line-height: 30px;
+    margin-left: 20px;
+    font-size: 14px;
+    float: left;
+}
+#header p {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+}
+#header a {
+    float: right;
+    margin-right: 10px;
+    line-height: 30px;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+}
+#header img {
+    max-height: 15px;
+    float: right;
+    margin-top: 7px;
+    margin-right: 5px;
+}

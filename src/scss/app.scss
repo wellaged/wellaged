@@ -1,0 +1,21 @@
+@import 'dialog';
+@import 'header';
+@import 'index';
+@import 'paper';
+@import 'preview';
+@import 'snippet';
+@import 'statusbar';
+@import 'toolbar';
+@import 'tooltip';
+
+
+body {
+  background-color: #fff;
+}
+
+section#app {
+  width: 1024px;
+  height: 768px;
+  border-style: solid;
+
+}

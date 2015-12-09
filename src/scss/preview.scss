@@ -1,0 +1,19 @@
+.preview {
+    display: none;
+}
+.preview .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: .5;
+}
+.preview .qad-content {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    max-width: 400px;
+}
