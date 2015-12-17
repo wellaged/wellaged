@@ -20,6 +20,7 @@ System.config({
     "css": "github:systemjs/plugin-css@0.1.20",
     "jointjs": "npm:jointjs@0.9.5",
     "jquery": "github:components/jquery@2.1.4",
+    "js-yaml": "npm:js-yaml@3.4.6",
     "lodash": "npm:lodash@3.10.1",
     "pixi.js": "npm:pixi.js@3.0.6",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -63,6 +64,15 @@ System.config({
       "module": "github:jspm/nodelibs-module@0.1.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:argparse@1.0.3": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "lodash": "npm:lodash@3.10.1",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "sprintf-js": "npm:sprintf-js@1.0.3",
+      "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
@@ -151,6 +161,10 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:esprima@2.7.1": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:falafel@1.1.0": {
       "acorn": "npm:acorn@1.2.2"
     },
@@ -172,6 +186,14 @@ System.config({
     },
     "npm:jquery@2.1.3": {
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:js-yaml@3.4.6": {
+      "argparse": "npm:argparse@1.0.3",
+      "esprima": "npm:esprima@2.7.1",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "inherit": "npm:inherit@2.2.2",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:lodash@3.10.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"

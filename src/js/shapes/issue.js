@@ -10,7 +10,7 @@ joint.shapes.wellaged = joint.shapes.wellaged || {};
 joint.shapes.wellaged.Issue = joint.shapes.basic.Generic.extend(_.extend({}, joint.shapes.basic.PortsModelInterface, {
 
 // FIXME fix translation
-  markup: '<g class="rotatable"><g class="scalable"> <g class="body" transform="translate(0, 215.46)"> <polygon points="475.013,-194 449.006,-215.46 396.994,-215.46 370.987,-194 396.994,-172.54 449.006,-172.54 475.013,-194" /></g></g><text/><g class="inPorts"/><g class="outPorts"/></g>',
+  markup: '<g class="rotatable"><g class="scalable"> <g class="body" transform="translate(-370.987, 215.46)"> <polygon points="475.013,-194 449.006,-215.46 396.994,-215.46 370.987,-194 396.994,-172.54 449.006,-172.54 475.013,-194" /></g></g><text/><g class="inPorts"/><g class="outPorts"/></g>',
   portMarkup: '<g class="port port-<%= port.id %>"><circle class="port-body"/><text class="port-label"/></g>',
 
   defaults: joint.util.deepSupplement({
@@ -56,28 +56,23 @@ joint.shapes.wellaged.Issue = joint.shapes.basic.Generic.extend(_.extend({}, joi
 
     inPorts: [{
       id: 'in',
-      label: 'In'
+      label: 'position'
     }],
 
-    outPorts: [{
+    outPorts: [/*{
       id: 'out',
       label: 'Out'
-    }]
+    }*/]
   }, joint.shapes.basic.Generic.prototype.defaults),
 
   initialize: function() {
-
     joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
-
-    this.attr('text/text', this.get('issue'));
-
-    this.on('change:issue', function() {
-
-      this.attr('text/text', this.get('issue'));
-
+    this.on('change:text', function() {
+      this.attr('text/text', this.get('text'));
     }, this);
+    this.trigger('change:text');
 
-      joint.shapes.basic.PortsModelInterface.initialize.apply(this, arguments);
+    joint.shapes.basic.PortsModelInterface.initialize.apply(this, arguments);
   },
 
   getPortAttrs: function(port, index, total, selector, type) {
@@ -104,12 +99,11 @@ joint.shapes.wellaged.IssueView = joint.dia.ElementView.extend(_.extend({}, join
 
     joint.shapes.basic.PortsViewInterface.initialize.apply(this, arguments);
     this.autoresize();
-    this.listenTo(this.model, 'change:issue', this.autoresize, this);
+    this.listenTo(this.model, 'change:text', this.autoresize, this);
   },
 
   autoresize: function() {
-
-    var dim = measureText(this.model.get('issue'), {
+    var dim = measureText(this.model.get('text'), {
       fontSize: this.model.attr('text/font-size')
     });
     this.model.resize(dim.width + 50, dim.height + 50);

@@ -91,6 +91,7 @@
       "css": "github:systemjs/plugin-css@^0.1.20",
       "jointjs": "npm:jointjs@^0.9.5",
       "jquery": "github:components/jquery@^2.1.4",
+      "js-yaml": "npm:js-yaml@^3.4.6",
       "lodash": "npm:lodash@^3.10.1"
     },
     "devDependencies": {

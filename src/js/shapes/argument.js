@@ -54,6 +54,9 @@ joint.shapes.wellaged.Argument = joint.shapes.basic.Generic.extend(_.extend({}, 
     inPorts: [{
       id: 'in',
       label: 'In'
+    }, {
+      id: 'undercutter',
+      label: 'undercutter'
     }],
     outPorts: [{
       id: 'out',
@@ -62,18 +65,14 @@ joint.shapes.wellaged.Argument = joint.shapes.basic.Generic.extend(_.extend({}, 
   }, joint.shapes.basic.Generic.prototype.defaults),
 
   initialize: function() {
-
     joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
 
-    this.attr('text/text', this.get('argument'));
-
-    this.on('change:argument', function() {
-
-      this.attr('text/text', this.get('argument'));
-
+    this.on('change:text', function() {
+      this.attr('text/text', this.get('text'));
     }, this);
+    this.trigger('change:text');
 
-      joint.shapes.basic.PortsModelInterface.initialize.apply(this, arguments);
+    joint.shapes.basic.PortsModelInterface.initialize.apply(this, arguments);
   },
 
   getPortAttrs: function(port, index, total, selector, type) {
@@ -100,12 +99,12 @@ joint.shapes.wellaged.ArgumentView = joint.dia.ElementView.extend(_.extend({}, j
 
     joint.shapes.basic.PortsViewInterface.initialize.apply(this, arguments);
     this.autoresize();
-    this.listenTo(this.model, 'change:argument', this.autoresize, this);
+    this.listenTo(this.model, 'change:text', this.autoresize, this);
   },
 
   autoresize: function() {
 
-    var dim = measureText(this.model.get('argument'), {
+    var dim = measureText(this.model.get('text'), {
       fontSize: this.model.attr('text/font-size')
     });
     this.model.resize(dim.width + 50, dim.height + 50);
