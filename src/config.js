@@ -21,6 +21,7 @@ System.config({
     "jointjs": "npm:jointjs@0.9.5",
     "jquery": "github:components/jquery@2.1.4",
     "js-yaml": "npm:js-yaml@3.4.6",
+    "klayjs": "npm:klayjs@0.3.2",
     "lodash": "npm:lodash@3.10.1",
     "pixi.js": "npm:pixi.js@3.0.6",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -192,6 +193,10 @@ System.config({
       "esprima": "npm:esprima@2.7.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "inherit": "npm:inherit@2.2.2",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:klayjs@0.3.2": {
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },

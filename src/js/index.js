@@ -1,5 +1,6 @@
 import AppView from './app';
 import 'jointjs/joint.css!';
+import 'klayjs/klay';
 
 // Polyfill for removed Chrome function
 SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function(toElement) {
@@ -7,6 +8,5 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
 };
 
 $(function() {
-
     var appView = window.appView = new AppView;
 });
