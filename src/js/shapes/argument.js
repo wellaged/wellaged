@@ -84,9 +84,9 @@ joint.shapes.wellaged.Argument = joint.shapes.basic.Generic.extend(_.extend({}, 
 
       attrs[portTextSelector] = { text: port.label };
       attrs[portCircleSelector] = { port: { id: port.id, type: type, label: port.label } };
-      attrs[portSelector] = { ref: '.body', 'ref-x': (index + 0.5) * (1 / total) };
+      attrs[portSelector] = { ref: '.body', 'ref-y': (index + 0.5) * (1 / total) };
 
-      if (selector === '.outPorts') { attrs[portSelector]['ref-dy'] = 0; }
+      if (selector === '.inPorts') { attrs[portSelector]['ref-dx'] = 0; }
 
       return attrs;
   },

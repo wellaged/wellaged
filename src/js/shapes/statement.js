@@ -18,7 +18,7 @@ joint.shapes.wellaged.Statement = joint.shapes.basic.Generic.extend(_.extend({},
         size: { width: 100, height: 60 },
         attrs: {
             'rect': { stroke: 'black', width: 100, height: 60, rx: 3, ry: 3 },
-            'text': { 'font-size': 14, text: '', lineHeight: 20, 'ref-x': .5, 'ref-y': .5, 
+            'text': { 'font-size': 14, text: '', lineHeight: 20, 'ref-x': .5, 'ref-y': .5,
             ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle', fill: 'black', 'font-family': 'Arial, helvetica, sans-serif' },
 
             '.port-body': {
@@ -73,9 +73,9 @@ joint.shapes.wellaged.Statement = joint.shapes.basic.Generic.extend(_.extend({},
 
       attrs[portTextSelector] = { text: port.label };
       attrs[portCircleSelector] = { port: { id: port.id, type: type, label: port.label } };
-      attrs[portSelector] = { ref: '.body', 'ref-x': (index + 0.5) * (1 / total) };
+      attrs[portSelector] = { ref: '.body', 'ref-y': (index + 0.5) * (1 / total) };
 
-      if (selector === '.outPorts') { attrs[portSelector]['ref-dy'] = 0; }
+      if (selector === '.inPorts') { attrs[portSelector]['ref-dx'] = 0; }
 
       return attrs;
   },
