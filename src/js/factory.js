@@ -4,7 +4,6 @@ import * as jsyaml from 'js-yaml';
 import {guid} from './util.js';
 import _ from 'lodash';
 
-import './shapes';
 import './shapes/statement';
 import './shapes/issue';
 import './shapes/argument';
@@ -40,7 +39,6 @@ var Factory = {
       },
       id: guid(),
       text: text,
-      label: assumed ? "in" : "out",
       assumed: assumed
     });
     return s;
@@ -150,7 +148,8 @@ var Factory = {
       const targetType = target.get('type');
 
       if (sourceType == "wellaged.Statement") {
-        yaml.statements[sourceId].label = 'out';
+        //yaml.statements[sourceId].label = 'out';
+        
       }
 
       if (targetType == "wellaged.Issue") {

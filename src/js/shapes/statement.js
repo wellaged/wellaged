@@ -17,8 +17,9 @@ joint.shapes.wellaged.Statement = joint.shapes.basic.Generic.extend(_.extend({},
         type: 'wellaged.Statement',
         size: { width: 100, height: 60 },
         attrs: {
-            'rect': { fill: '#b43939', stroke: 'none', width: 100, height: 60, rx: 3, ry: 3 },
-            'text': { 'font-size': 14, text: '', lineHeight: 20, 'ref-x': .5, 'ref-y': .5, ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle', fill: '#f6f6f6', 'font-family': 'Arial, helvetica, sans-serif' },
+            'rect': { stroke: 'black', width: 100, height: 60, rx: 3, ry: 3 },
+            'text': { 'font-size': 14, text: '', lineHeight: 20, 'ref-x': .5, 'ref-y': .5, 
+            ref: 'rect', 'y-alignment': 'middle', 'x-alignment': 'middle', fill: 'black', 'font-family': 'Arial, helvetica, sans-serif' },
 
             '.port-body': {
                 magnet: true
@@ -56,7 +57,6 @@ joint.shapes.wellaged.Statement = joint.shapes.basic.Generic.extend(_.extend({},
               this.attr('text/text-decoration', 'none');
         }, this);
 
-        this.trigger('change:label');
         this.trigger('change:assumed');
         this.trigger('change:text');
 

@@ -21,7 +21,6 @@ joint.shapes.wellaged.Argument = joint.shapes.basic.Generic.extend(_.extend({}, 
     },
     attrs: {
       '.body': {
-        //fill: '#a22424',
         stroke: 'black',
         width: 100,
         height: 60,
