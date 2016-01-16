@@ -10,7 +10,7 @@ import './shapes/argument';
 
 var Factory = {
 
-  createIssue: function(text) {
+  createIssue: function(text, id) {
     let s = new joint.shapes.wellaged.Issue({
       position: {
         x: 400 - 50,
@@ -21,13 +21,12 @@ var Factory = {
         height: 70
       },
       text: text,
-      id: guid()
+      id: (id != null) ? id : guid()
     });
     return s;
   },
 
-  createStatement: function(text) {
-    const assumed = Math.trunc(Math.random() * 100) % 2 == 1;
+  createStatement: function(text, id, assumed) {
     let s = new joint.shapes.wellaged.Statement({
       position: {
         x: 400 - 50,
@@ -37,14 +36,14 @@ var Factory = {
         width: 100,
         height: 70
       },
-      id: guid(),
+      id: (id != null) ? id : guid(),
       text: text,
-      assumed: assumed
+      assumed: (assumed != null) ? assumed : (Math.trunc(Math.random() * 100) % 2 == 1)
     });
     return s;
   },
 
-  createArgument: function(text) {
+  createArgument: function(text, id) {
     let a = new joint.shapes.wellaged.Argument({
       position: {
         x: 400 - 50,
@@ -54,7 +53,7 @@ var Factory = {
         width: 100,
         height: 70
       },
-      id: guid(),
+      id: (id != null) ? id : guid(),
       text: text
     });
     return a;
@@ -98,6 +97,83 @@ var Factory = {
        ]
     }
   */
+
+  toKGraph: function(graph) {
+    let kg = {
+      id: "root",
+      properties: {
+        direction: "LEFT",
+        spacing: 40 
+      },
+      children: [],
+      edges: []
+    };
+
+    window.gg = graph;
+
+    _.each(graph.getElements(), function(cell) {
+      const id = cell.get('id');
+      const bbox = cell.getBBox();
+
+      window.cc = cell;
+
+      kg.children.push({
+        id: id,
+        width: bbox.width,
+        height: bbox.height,
+        properties: {
+          portConstraints: "FIXED_SIDE"
+        },
+        ports: [{
+          id: "in",
+          properties: {portSide: "EAST"}
+        }, {
+          id: "out",
+          properties: {portSide: "WEST"}
+        }]
+      });
+
+      /*if(cell.get("type") === "wellaged.Argument") {
+        kg.children[kg.children.length - 1].ports.push({
+          id: "undercutter",
+          properties: {portSide: "EAST"}
+        });
+      }*/
+    });
+
+    _.each(graph.getLinks(), function(link){
+      const id = link.get('id');
+      window.ll = link;
+      const source = graph.getCell(link.get('source').id);
+      const sourceId = source.get('id');
+      const sourcePort = link.get("source").port;// === "out") ? "out": "in";
+
+      const target = graph.getCell(link.get('target').id);
+      const targetId = target.get('id');
+      const targetPort = link.get("target").port;
+
+      kg.edges.push({
+        id: id,
+        source: sourceId,
+        sourcePort: sourceId+"-"+sourcePort,
+        target: targetId,
+        targetPort: targetId+"-"+targetPort
+      });
+    });
+
+    console.dir(kg);
+
+    return kg;
+  },
+
+  applyKGraph: function(graph, layouted) {
+    _.each(layouted.children, function(child) {
+      const cell = graph.getCell(child.id);
+      cell.position(child.x, child.y);
+    });
+    console.log(layouted);
+  },
+
   createYAML: function(graph) {
     let yaml = {
       meta: {
@@ -149,7 +225,7 @@ var Factory = {
 
       if (sourceType == "wellaged.Statement") {
         //yaml.statements[sourceId].label = 'out';
-        
+
       }
 
       if (targetType == "wellaged.Issue") {

@@ -1,5 +1,6 @@
 import Backbone from 'backbone';
 import * as joint from 'jointjs';
+import * as jsyaml from 'js-yaml';
 import _ from 'lodash';
 
 import Factory from './factory';
@@ -15,8 +16,10 @@ var AppView = Backbone.View.extend({
         'click #toolbar .add-statement': 'addStatement',
         'click #toolbar .preview-dialog': 'previewDialog',
         'click #toolbar .to-yaml': 'graphToYAML',
+        'click #toolbar .from-yaml': 'graphFromYAML',
         'click #toolbar .carneades': 'runCarneades',
-        'click #toolbar .clear': 'clear'
+        'click #toolbar .clear': 'clear',
+        'click #toolbar .auto-layout': 'doAutoLayout'
     },
 
     initialize: function() {
@@ -60,8 +63,8 @@ var AppView = Backbone.View.extend({
         this.paper = new joint.dia.Paper({
             el: this.$('#paper'),
             model: this.graph,
-            width: 800,
-            height: 600,
+            width: 1500,
+            height: 1050,
             gridSize: 1,
             snapLinks: { radius: 75 },
             validateConnection: function(cellViewS, magnetS, cellViewT, magnetT, end, linkView) {
@@ -69,8 +72,9 @@ var AppView = Backbone.View.extend({
                 if (magnetS && magnetS.getAttribute('port') === 'in') return false;
                 // Prevent linking from output ports to input ports within one element.
                 if (cellViewS === cellViewT) return false;
-                // Prevent linking to input ports.
-                return true;
+
+                let oneStatement = (cellViewS.model.get('type') === 'wellaged.Statement') || (cellViewT.model.get('type') === 'wellaged.Statement');
+                return oneStatement;
                 //return (magnetT && magnetT.getAttribute('type') === 'input') || (cellViewS.model.get('type') === 'qad.Question' && cellViewT.model.get('type') === 'qad.Answer');
             },
             validateMagnet: function(cellView, magnet) {
@@ -133,6 +137,70 @@ var AppView = Backbone.View.extend({
       console.log(yaml);
     },
 
+    graphFromYAML: function() {
+      const thiz = this;
+      const helper = function(source, target) {
+        return new joint.shapes.devs.Link({
+          source: {
+            id: source,
+            port: 'out'
+          },
+          target: {
+            id: target,
+            port: 'in'
+          }
+        });
+      };
+
+      $.get("/porsche.yml", function(yamlTxt) {
+        const yaml = jsyaml.load(yamlTxt);
+
+        thiz.clear();
+        _.each(yaml.statements, function(stmt, id) {
+          const s = Factory.createStatement(stmt, id, _.includes(yaml.assumptions, id));
+          thiz.graph.addCell(s);
+        });
+
+        _.each(yaml.arguments, function(arg, id) {
+          const a = Factory.createArgument(id, id);
+          thiz.graph.addCell(a);
+
+          thiz.graph.addCell(helper(id, arg.conclusion));
+          _.each(arg.premises, function(premise) {
+            thiz.graph.addCell(helper(premise, id));
+          });
+        });
+
+        _.each(yaml.issues, function(issue, id) {
+          const i = Factory.createIssue(id, id);
+
+          thiz.graph.addCell(i);
+
+          _.each(issue.positions, function(pos) {
+            thiz.graph.addCell(helper(pos, id));
+          });
+
+        });
+
+        console.dir(yaml);
+
+      });
+
+      this.doAutoLayout();
+
+    },
+
+    doAutoLayout: function() {
+      const kgraph = Factory.toKGraph(this.graph);
+      const thiz = this;
+      $klay.layout({
+        graph: kgraph,
+        // options: {spacing: 50},
+        success: function(layouted) { Factory.applyKGraph(thiz.graph, layouted);},
+        error: function(error) { console.log(error) }
+      });
+    },
+
     runCarneades: function() {
       let yaml = Factory.createYAML(this.graph);
 
@@ -141,7 +209,6 @@ var AppView = Backbone.View.extend({
         console.dir(output);
         throw "carneades error :/";
       }
-
 
       Factory.applyYAML(this.graph, output.result);
     },
