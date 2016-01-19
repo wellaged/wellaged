@@ -93,19 +93,4 @@ joint.shapes.wellaged.Issue = joint.shapes.basic.Generic.extend(_.extend({}, joi
   },
 }));
 
-joint.shapes.wellaged.IssueView = joint.dia.ElementView.extend(_.extend({}, joint.shapes.basic.PortsViewInterface, {
-
-  initialize: function() {
-
-    joint.shapes.basic.PortsViewInterface.initialize.apply(this, arguments);
-    this.autoresize();
-    this.listenTo(this.model, 'change:text', this.autoresize, this);
-  },
-
-  autoresize: function() {
-    var dim = measureText(this.model.get('text'), {
-      fontSize: this.model.attr('text/font-size')
-    });
-    this.model.resize(dim.width + 50, dim.height + 50);
-  }
-}));
+joint.shapes.wellaged.IssueView = joint.shapes.wellaged.BasicView.extend({});

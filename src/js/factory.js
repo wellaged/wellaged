@@ -4,6 +4,7 @@ import * as jsyaml from 'js-yaml';
 import {guid} from './util.js';
 import _ from 'lodash';
 
+import './shapes/basic';
 import './shapes/statement';
 import './shapes/issue';
 import './shapes/argument';
@@ -11,7 +12,7 @@ import './shapes/argument';
 var Factory = {
 
   createIssue: function(text, id) {
-    let s = new joint.shapes.wellaged.Issue({
+    return new joint.shapes.wellaged.Issue({
       position: {
         x: 400 - 50,
         y: 30
@@ -21,13 +22,12 @@ var Factory = {
         height: 70
       },
       text: text,
-      id: (id != null) ? id : guid()
+      id: (id !== null) ? id : guid()
     });
-    return s;
   },
 
   createStatement: function(text, id, assumed) {
-    let s = new joint.shapes.wellaged.Statement({
+    return new joint.shapes.wellaged.Statement({
       position: {
         x: 400 - 50,
         y: 30
@@ -36,15 +36,14 @@ var Factory = {
         width: 100,
         height: 70
       },
-      id: (id != null) ? id : guid(),
+      id: (id !== null) ? id : guid(),
       text: text,
-      assumed: (assumed != null) ? assumed : (Math.trunc(Math.random() * 100) % 2 == 1)
+      assumed: (assumed !== null) ? assumed : (Math.trunc(Math.random() * 100) % 2 == 1)
     });
-    return s;
   },
 
   createArgument: function(text, id) {
-    let a = new joint.shapes.wellaged.Argument({
+    return new joint.shapes.wellaged.Argument({
       position: {
         x: 400 - 50,
         y: 30
@@ -53,10 +52,9 @@ var Factory = {
         width: 100,
         height: 70
       },
-      id: (id != null) ? id : guid(),
+      id: (id !== null) ? id : guid(),
       text: text
     });
-    return a;
   },
 
   createLink: function(source, target) {
@@ -82,22 +80,6 @@ var Factory = {
     });
   },
 
-  // Example:
-  /*
-    {
-       root: '1',
-       nodes: [
-          { id: '1', type: 'qad.Question', question: 'Are you sure?', options: [{ id: 'yes', text: 'Yes' }, { id: 'no', text: 'No' }] },
-          { id: '2', type: 'qad.Answer', answer: 'That was good.' },
-          { id: '3', type: 'qad.Answer', answer: 'That was bad.' }
-       ],
-       links: [
-          { type: 'qad.Link', source: { id: '1', port: 'yes' }, target: { id: '2' } },
-          { type: 'qad.Link', source: { id: '1', port: 'no' }, target: { id: '3' } }
-       ]
-    }
-  */
-
   toKGraph: function(graph) {
     let kg = {
       id: "root",
@@ -111,7 +93,7 @@ var Factory = {
 
     window.gg = graph;
 
-    _.each(graph.getElements(), function(cell) {
+    for(let cell of graph.getElements()) { 
       const id = cell.get('id');
       const bbox = cell.getBBox();
 
@@ -139,9 +121,9 @@ var Factory = {
           properties: {portSide: "EAST"}
         });
       }*/
-    });
+    }
 
-    _.each(graph.getLinks(), function(link){
+    for(let link of graph.getLinks()) { 
       const id = link.get('id');
       window.ll = link;
       const source = graph.getCell(link.get('source').id);
@@ -159,19 +141,16 @@ var Factory = {
         target: targetId,
         targetPort: targetId+"-"+targetPort
       });
-    });
-
-    console.dir(kg);
+    }
 
     return kg;
   },
 
   applyKGraph: function(graph, layouted) {
-    _.each(layouted.children, function(child) {
+    for(let child of layouted.children) {
       const cell = graph.getCell(child.id);
       cell.position(child.x, child.y);
-    });
-    console.log(layouted);
+    }
   },
 
   createYAML: function(graph) {
@@ -184,7 +163,7 @@ var Factory = {
       arguments: {}
     };
 
-    _.each(graph.getElements(), function(cell) {
+    for(let cell of graph.getElements()) {
       const id = cell.get('id');
       const text = cell.get('text');
 
@@ -212,9 +191,9 @@ var Factory = {
           };
           break;
       }
-    });
+    }
 
-    _.each(graph.getLinks(), function(cell) {
+    for(let cell of graph.getLinks()) {
       const source = graph.getCell(cell.get('source').id);
       const sourceId = source.get('id');
       const sourceType = source.get('type');
@@ -241,7 +220,7 @@ var Factory = {
           yaml.arguments[targetId].undercutter = sourceId;
         else yaml.arguments[targetId].premises.push(sourceId);
       }
-    });
+    }
 
     return jsyaml.dump(yaml);
   },
@@ -250,11 +229,9 @@ var Factory = {
   applyYAML: function(graph, str) {
     const yaml = jsyaml.load(str);
 
-    _.each(yaml.statements, function(statement, key) {
+    _.each(yaml.statements, (statement, key) => {
       graph.getCell(key).set('label', statement.label);
     });
-
-
   }
 };
 

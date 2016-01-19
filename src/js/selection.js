@@ -1,4 +1,7 @@
-import {V,g} from 'jointjs';
+import {
+    V, g
+}
+from 'jointjs';
 import Backbone from 'backbone';
 import _ from 'lodash';
 
@@ -20,16 +23,24 @@ var SelectionView = Backbone.View.extend({
 
         var paper = this.options.paper;
 
-        var boxTemplate = V('rect', { fill: 'none', 'stroke': '#C6C7E2', 'stroke-width': 1, 'pointer-events': 'none' });
+        var boxTemplate = V('rect', {
+            fill: 'none',
+            'stroke': '#C6C7E2',
+            'stroke-width': 1,
+            'pointer-events': 'none'
+        });
         _.invoke(this.boxes, 'remove');
         this.boxes = [];
 
-        this.model.each(function(element) {
+        this.model.each((element) => {
 
             var box = boxTemplate.clone();
             var p = 3; // Box padding.
             box.attr(g.rect(_.extend({}, element.get('position'), element.get('size'))).moveAndExpand({
-                x: -p, y: -p, width: 2*p, height: 2*p
+                x: -p,
+                y: -p,
+                width: 2 * p,
+                height: 2 * p
             }));
             V(paper.viewport).append(box);
             this.boxes.push(box);
@@ -40,4 +51,6 @@ var SelectionView = Backbone.View.extend({
     }
 });
 
-export {Selection, SelectionView};
+export {
+    Selection, SelectionView
+};

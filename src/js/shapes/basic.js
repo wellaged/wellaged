@@ -4,10 +4,7 @@ import {measureText} from '../util';
 
 joint.shapes.wellaged = joint.shapes.wellaged || {};
 
-const ASSUMED_YES = 'rgb(114, 186, 23)';
-const ASSUMED_NO = '#b43939';
-
-joint.shapes.wellaged.Statement = joint.shapes.basic.Generic.extend(_.extend({}, joint.shapes.basic.PortsModelInterface, {
+joint.shapes.wellaged.SStatement = joint.shapes.basic.Generic.extend(_.extend({}, joint.shapes.basic.PortsModelInterface, {
 
     markup: '<g class="rotatable"><g class="scalable"><rect class="body"/></g><text/><g class="inPorts"/><g class="outPorts"/></g>',
     portMarkup: '<g class="port port-<%= port.id %>"><circle class="port-body"/><text class="port-label"/></g>',
@@ -81,4 +78,18 @@ joint.shapes.wellaged.Statement = joint.shapes.basic.Generic.extend(_.extend({},
   },
 }));
 
-joint.shapes.wellaged.StatementView = joint.shapes.wellaged.BasicView.extend({});
+joint.shapes.wellaged.BasicView = joint.dia.ElementView.extend(_.extend({}, joint.shapes.basic.PortsViewInterface, {
+
+    initialize: function() {
+        joint.shapes.basic.PortsViewInterface.initialize.apply(this, arguments);
+        this.autoresize();
+        this.listenTo(this.model, 'change:text', this.autoresize, this);
+    },
+
+    autoresize: function() {
+        var dim = measureText(this.model.get('text'), {
+            fontSize: this.model.attr('text/font-size')
+        });
+        this.model.resize(dim.width + 50, dim.height + 50);
+    }
+}));
