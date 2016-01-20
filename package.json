@@ -1,21 +1,20 @@
 {
-  "name": "es6-jspm-gulp-boilerplate",
-  "version": "0.3.0",
-  "description": "Boilerplate for ES6+ apps using JSPM + Babel",
+  "name": "wellaged",
+  "version": "0.0.1",
+  "description": "WellAgEd Editor",
   "main": "dist/index.html",
-  "homepage": "https://github.com/alexweber/es6-jspm-gulp-boilerplate#readme",
+  "homepage": "https://github.com/wellaged/wellaged#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexweber/es6-jspm-gulp-boilerplate.git"
+    "url": "git+https://github.com/wellaged/wellaged.git"
   },
-  "bugs": "https://github.com/alexweber/es6-jspm-gulp-boilerplate/issues",
+  "bugs": "https://github.com/wellaged/wellaged/issues",
   "author": {
-    "name": "Alex Weber",
-    "email": "alexweber15@gmail.com",
-    "url": "http://alexweber.com.br"
+    "name": "Andreas C. Osowski",
+    "email": "andreas@osowski.de"
   },
   "readmeFilename": "README.md",
-  "license": "Unlicense",
+  "license": "Apache-2.0",
   "scripts": {
     "test": "karma start",
     "test:watch": "karma start --no-single-run",
@@ -27,12 +26,11 @@
     "sassdocs": "sassdoc src/scss"
   },
   "keywords": [
-    "es6",
-    "jspm",
-    "gulp",
-    "boilerplate",
-    "babel",
-    "systemjs"
+    "argumentation",
+    "argument",
+    "graph",
+    "editor",
+    "carneades"
   ],
   "directories": {
     "doc": "docs",
