@@ -13,6 +13,8 @@ System.config({
   },
 
   map: {
+      "jquery": "@empty",
+      "lodash": "@empty",
     "babel": "npm:babel-core@5.8.34",
     "babel-runtime": "npm:babel-runtime@5.8.34",
     "backbone": "npm:backbone@1.2.3",
@@ -20,10 +22,8 @@ System.config({
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
     "jointjs": "npm:jointjs@0.9.5",
-    "jquery": "github:components/jquery@2.1.4",
     "js-yaml": "npm:js-yaml@3.4.6",
     "klayjs": "npm:klayjs@0.3.2",
-    "lodash": "npm:lodash@3.10.1",
     "pixi.js": "npm:pixi.js@3.0.6",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
