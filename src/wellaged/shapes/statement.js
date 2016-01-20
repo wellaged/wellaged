@@ -1,6 +1,7 @@
 import * as joint from 'jointjs';
 import _ from 'lodash';
 import {measureText} from '../util';
+import './basic';
 
 joint.shapes.wellaged = joint.shapes.wellaged || {};
 

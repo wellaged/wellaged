@@ -12,3 +12,4 @@ src/css/
 dist/
 
 .tern-port
+.#*

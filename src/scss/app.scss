@@ -1,18 +1,2 @@
-@import 'dialog';
-@import 'header';
-@import 'index';
 @import 'paper';
-@import 'snippet';
-@import 'statusbar';
 @import 'toolbar';
-
-
-body {
-  background-color: #fff;
-}
-
-section#app {
-  width: 1500px;
-  height: 1050px;
-  border-style: solid;
-}

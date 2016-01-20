@@ -23,7 +23,7 @@ gulp.task('build', function (done) {
 gulp.task('buildsass', function () {
   gulp.src(global.paths.sass)
     .pipe(sass().on('error', sass.logError))
-    .pipe(concat('app.css'))
+    .pipe(concat('wellaged.css'))
     .pipe(autoprefixer())
     .pipe(minifyCss())
   	.pipe(rename({
@@ -47,8 +47,8 @@ gulp.task('buildjs', function () {
 // Build HTML for distribution.
 gulp.task('buildhtml', function () {
   gulp.src(global.paths.html)
-    .pipe(replace('css/app.css', 'app.min.css'))
-    .pipe(replace('lib/system.js', 'app.min.js'))
+    .pipe(replace('css/app.css', 'wellaged.min.css'))
+    .pipe(replace('lib/system.js', 'wellaged.min.js'))
     .pipe(replace('<script src="config.js"></script>', ''))
     .pipe(replace("<script>System.import('./js/app')</script>", ''))
     .pipe(minifyHtml())

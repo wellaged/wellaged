@@ -4,6 +4,7 @@ import {
   measureText
 }
 from '../util';
+import './basic';
 
 joint.shapes.wellaged = joint.shapes.wellaged || {};
 

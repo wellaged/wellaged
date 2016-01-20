@@ -10,19 +10,16 @@ import {
 from './selection';
 
 var AppView = Backbone.View.extend({
-
-    el: '#app',
-
     events: {
-        'click #toolbar .add-issue': 'addIssue',
-        'click #toolbar .add-argument': 'addArgument',
-        'click #toolbar .add-statement': 'addStatement',
-        'click #toolbar .preview-dialog': 'previewDialog',
-        'click #toolbar .to-yaml': 'graphToYAML',
-        'click #toolbar .from-yaml': 'graphFromYAML',
-        'click #toolbar .carneades': 'runCarneades',
-        'click #toolbar .clear': 'clear',
-        'click #toolbar .auto-layout': 'doAutoLayout'
+        'click .wellaged-toolbar .add-issue': 'addIssue',
+        'click .wellaged-toolbar .add-argument': 'addArgument',
+        'click .wellaged-toolbar .add-statement': 'addStatement',
+        'click .wellaged-toolbar .preview-dialog': 'previewDialog',
+        'click .wellaged-toolbar .to-yaml': 'graphToYAML',
+        'click .wellaged-toolbar .from-yaml': 'graphFromYAML',
+        'click .wellaged-toolbar .carneades': 'runCarneades',
+        'click .wellaged-toolbar .clear': 'clear',
+        'click .wellaged-toolbar .auto-layout': 'doAutoLayout'
     },
 
     initialize: function() {
@@ -64,12 +61,12 @@ var AppView = Backbone.View.extend({
     initializePaper: function() {
 
         this.graph = new joint.dia.Graph();
-
+      
         this.paper = new joint.dia.Paper({
-            el: this.$('#paper'),
+            el: this.$('.wellaged-paper'),
             model: this.graph,
-            width: 1500,
-            height: 1050,
+            width: this.$('.wellaged-paper').width(),
+            height: this.$('.wellaged-paper').width(),
             gridSize: 1,
             snapLinks: {
                 radius: 75
@@ -108,37 +105,23 @@ var AppView = Backbone.View.extend({
     },
 
     onSelectionChange: function(collection) {
-
         var cell = collection.first();
-        if (cell) {
-            this.status('Selection: ' + cell.get('type'));
-        } else {
-            this.status('Selection emptied.');
-        }
-    },
-
-    // Show a message in the statusbar.
-    status: function(m) {
-        this.$('#statusbar .message').text(m);
     },
 
     addIssue: function() {
 
         var q = Factory.createIssue('i3: PE');
         this.graph.addCell(q);
-        this.status('Issue added.');
     },
 
     addArgument: function() {
         var a = Factory.createArgument('Argument.');
         this.graph.addCell(a);
-        this.status('Argument added.');
     },
 
     addStatement: function() {
         let a = Factory.createStatement('Statement');
         this.graph.addCell(a);
-        this.status('Statement added.');
     },
 
     graphToYAML: function() {
@@ -221,10 +204,8 @@ var AppView = Backbone.View.extend({
     },
 
     clear: function() {
-
         this.graph.clear();
     }
-
 });
 
-export default AppView;
+export {AppView};

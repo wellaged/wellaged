@@ -1,4 +1,4 @@
-#toolbar {
+.wellaged-toolbar {
     padding-top: 8px;
     padding-bottom: 25px;
     text-align: center;
@@ -6,7 +6,7 @@
     box-shadow: 0 2px 5px rgba(106, 108, 138, .49); /*#6a6c8a*/
     border-top: 1px solid #DCDDEE;
 }
-#toolbar .btn {
+.wellaged-toolbar .btn {
     border: 1px solid #6A6C8B;
     color: #6A6C8B;
     background-color: transparent;
@@ -20,12 +20,12 @@
     cursor: pointer;
     outline: none;
 }
-#toolbar .btn:hover {
+.wellaged-toolbar .btn:hover {
     background-color: #6A6C8B;
     color: white;
 }
 
-#toolbar .inp {
+.wellaged-toolbar .inp {
     vertical-align: top;
     border: 1px solid #6A6C8B;
     color: #6A6C8B;

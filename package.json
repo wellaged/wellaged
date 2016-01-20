@@ -22,7 +22,7 @@
     "build": "gulp build",
     "docs": "npm run sassdocs && npm run jsdocs",
     "start": "gulp",
-    "buildjs": "jspm bundle-sfx js/app dist/app.min.js --minify --skip-source-maps",
+    "buildjs": "jspm bundle-sfx wellaged/api dist/wellaged.min.js --skip-source-maps --minify",
     "jsdocs": "esdoc -c .esdoc.json",
     "sassdocs": "sassdoc src/scss"
   },
@@ -98,6 +98,7 @@
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "clean-css": "npm:clean-css@^3.4.9",
       "core-js": "npm:core-js@^1.1.4"
     }
   }
