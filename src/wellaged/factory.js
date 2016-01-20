@@ -2,7 +2,6 @@ import * as joint from 'jointjs';
 import * as jsyaml from 'js-yaml';
 
 import {guid} from './util.js';
-import _ from 'lodash';
 
 import './shapes/basic';
 import './shapes/statement';
@@ -85,7 +84,7 @@ var Factory = {
       id: "root",
       properties: {
         direction: "LEFT",
-        spacing: 40 
+        spacing: 40
       },
       children: [],
       edges: []
@@ -93,7 +92,7 @@ var Factory = {
 
     window.gg = graph;
 
-    for(let cell of graph.getElements()) { 
+    for(let cell of graph.getElements()) {
       const id = cell.get('id');
       const bbox = cell.getBBox();
 
@@ -123,7 +122,7 @@ var Factory = {
       }*/
     }
 
-    for(let link of graph.getLinks()) { 
+    for(let link of graph.getLinks()) {
       const id = link.get('id');
       window.ll = link;
       const source = graph.getCell(link.get('source').id);

@@ -1,5 +1,4 @@
 import * as joint from 'jointjs';
-import _ from 'lodash';
 import {
     measureText
 }
