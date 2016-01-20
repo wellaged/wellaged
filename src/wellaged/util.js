@@ -2,7 +2,6 @@ import {
     V
 }
 from 'jointjs';
-import _ from 'lodash';
 
 let measureText = function(text, attrs) {
 

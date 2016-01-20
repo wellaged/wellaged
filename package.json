@@ -21,7 +21,7 @@
     "build": "gulp build",
     "docs": "npm run sassdocs && npm run jsdocs",
     "start": "gulp",
-    "buildjs": "jspm bundle-sfx 'wellaged/api - jquery - lodash' dist/wellaged.min.js --skip-source-maps --minify --format amd",
+    "buildjs": "jspm bundle-sfx wellaged/api dist/wellaged.min.js --skip-source-maps",
     "jsdocs": "esdoc -c .esdoc.json",
     "sassdocs": "sassdoc src/scss"
   },
@@ -88,10 +88,8 @@
       "backbone": "npm:backbone@^1.2.3",
       "css": "github:systemjs/plugin-css@^0.1.20",
       "jointjs": "npm:jointjs@^0.9.5",
-      "jquery": "github:components/jquery@^2.1.4",
       "js-yaml": "npm:js-yaml@^3.4.6",
-      "klayjs": "npm:klayjs@^0.3.2",
-      "lodash": "npm:lodash@^3.10.1"
+      "klayjs": "npm:klayjs@^0.3.2"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.24",

@@ -1,9 +1,10 @@
 import Backbone from 'backbone';
 import * as joint from 'jointjs';
 import * as jsyaml from 'js-yaml';
-import _ from 'lodash';
 
 import Factory from './factory';
+
+Backbone.$ = window.$;
 
 var EditorView = Backbone.View.extend({
     initialize: function() {
