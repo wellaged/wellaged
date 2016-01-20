@@ -1,9 +1,10 @@
-import {AppView} from './app';
+import {EditorView} from './editor';
 import 'klayjs';
 import 'jointjs/joint.css!';
+import '../carneades-js';
 
 const API = {
-  createEditor: (el) => new (AppView.extend({
+  createEditor: (el) => new (EditorView.extend({
     el: el
   }))()
 };

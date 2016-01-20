@@ -9,7 +9,7 @@ import {
 }
 from './selection';
 
-var AppView = Backbone.View.extend({
+var EditorView = Backbone.View.extend({
     events: {
         'click .wellaged-toolbar .add-issue': 'addIssue',
         'click .wellaged-toolbar .add-argument': 'addArgument',
@@ -208,4 +208,4 @@ var AppView = Backbone.View.extend({
     }
 });
 
-export {AppView};
+export {EditorView};
