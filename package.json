@@ -21,7 +21,7 @@
     "build": "gulp build",
     "docs": "npm run sassdocs && npm run jsdocs",
     "start": "gulp",
-    "buildjs": "jspm bundle-sfx wellaged/api dist/wellaged.min.js --skip-source-maps",
+    "buildjs": "jspm bundle-sfx wellaged/api dist/wellaged.min.js --skip-source-maps --minify",
     "jsdocs": "esdoc -c .esdoc.json",
     "sassdocs": "sassdoc src/scss"
   },
