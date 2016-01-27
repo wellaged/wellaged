@@ -20,7 +20,7 @@ joint.shapes.wellaged.Argument = joint.shapes.wellaged.Basic.extend({
         stroke: 'black',
         width: 100,
         height: 60,
-        rx: 15
+        rx: 25
       },
       'text': {
         'font-size': 14,
