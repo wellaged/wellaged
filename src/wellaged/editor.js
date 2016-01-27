@@ -19,7 +19,7 @@ var EditorView = Backbone.View.extend({
             el: this.$('.wellaged-paper'),
             model: this.graph,
             width: this.$('.wellaged-paper').width(),
-            height: this.$('.wellaged-paper').width(),
+            height: this.$('.wellaged-paper').height(),
             gridSize: 1,
             snapLinks: {
                 radius: 75
