@@ -98,15 +98,15 @@ var EditorView = Backbone.View.extend({
     },
 
     graphFromYAML: function(yamlTxt) {
-        const helper = (source, target) =>
-            new joint.shapes.devs.Link({
+        const helper = (source, target, port) =>
+            new joint.shapes.wellaged.DefaultLink({
                 source: {
                     id: source,
                     port: 'out'
                 },
                 target: {
                     id: target,
-                    port: 'in'
+                    port: port || 'in'
                 }
             });
 
@@ -124,6 +124,9 @@ var EditorView = Backbone.View.extend({
             this.graph.addCell(a);
             this.graph.addCell(helper(id, arg.conclusion));
             for (let premise of arg.premises) this.graph.addCell(helper(premise, id));
+            if (arg.undercutter)
+                this.graph.addCell(helper(arg.undercutter, id, 'undercutter'));
+
         });
 
         _.each(yaml.issues, (issue, id) => {
