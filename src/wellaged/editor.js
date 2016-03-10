@@ -24,36 +24,53 @@ var EditorView = Backbone.View.extend({
             snapLinks: {
                 radius: 75
             },
-            validateConnection: function(cellViewS, magnetS, cellViewT, magnetT, end, linkView) {
+            validateConnection: (cellViewS, magnetS, cellViewT, magnetT, end, linkView) => {
                 // Prevent linking from input ports.
+                if (!magnetT || magnetT.getAttribute('port') === 'out') return false;
                 if (magnetS && magnetS.getAttribute('port') === 'in') return false;
                 // Prevent linking from output ports to input ports within one element.
                 if (cellViewS === cellViewT) return false;
 
+                // Only allow for 1:1 connections to undercutter.
+                if (magnetT && magnetT.getAttribute('port') === 'undercutter') {
+                    const links = this.graph.getConnectedLinks(cellViewT.model, {
+                        inbound: true
+                    });
+
+                    if (links.filter((o) => o.attributes.target.port === 'undercutter' && (o != linkView.model)).length > 0) return false;
+                }
+
                 let typeIsStatementCount = (cellViewS.model.get('type') === 'wellaged.Statement') + (cellViewT.model.get('type') === 'wellaged.Statement');
                 return typeIsStatementCount == 1;
             },
-            validateMagnet: (cellView, magnet) => magnet.getAttribute('magnet') !== 'passive',
-            defaultLink: new joint.dia.Link({
-                router: {
-                    name: 'manhattan'
-                },
-                connector: {
-                    name: 'rounded'
-                },
-                attrs: {
-                    '.marker-target': {
-                        d: 'M 10 0 L 0 5 L 10 10 z',
-                        fill: '#6a6c8a',
-                        stroke: '#6a6c8a'
-                    },
-                    '.connection': {
-                        stroke: '#6a6c8a',
-                        'stroke-width': 2
-                            //filter: { name: 'dropShadow', args: { dx: 1, dy: 1, blur: 2 } }
+            validateMagnet: (cellView, magnet) => {
+                return magnet.getAttribute('magnet') !== 'passive' && magnet.getAttribute('port') === 'out';
+            },
+
+            defaultLink: (cellView, magnet) =>
+                new joint.shapes.wellaged.DefaultLink()
+        });
+
+        return;
+        this.paper.on('cell:pointerdown', (cellView, evt, x, y) => {
+            if (cellView.model.attributes.type === 'link') {
+                const shapes = ['wellaged.Issue', 'wellaged.Statement', 'wellaged.Argument'];
+                for (let e of this.graph.getElements()) {
+                    if (shapes.indexOf(e.attributes.type) != -1) {
+                        e.showMagnets(true);
                     }
                 }
-            })
+            }
+        });
+        this.paper.on('cell:pointerup', (cellView, evt, x, y) => {
+            if (cellView.model.attributes.type === 'link') {
+                const shapes = ['wellaged.Issue', 'wellaged.Statement', 'wellaged.Argument'];
+                for (let e of this.graph.getElements()) {
+                    if (shapes.indexOf(e.attributes.type) != -1) {
+                        e.showMagnets(false);
+                    }
+                }
+            }
         });
     },
 

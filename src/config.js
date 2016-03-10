@@ -13,17 +13,17 @@ System.config({
   },
 
   map: {
-      "jquery": "@empty",
-      "lodash": "@empty",
-    "babel": "npm:babel-core@5.8.34",
-    "babel-runtime": "npm:babel-runtime@5.8.34",
-    "backbone": "npm:backbone@1.2.3",
-    "clean-css": "npm:clean-css@3.4.9",
+    "babel": "npm:babel-core@5.8.35",
+    "babel-runtime": "npm:babel-runtime@5.8.35",
+    "backbone": "npm:backbone@1.3.1",
+    "clean-css": "npm:clean-css@3.4.10",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
-    "jointjs": "npm:jointjs@0.9.5",
-    "js-yaml": "npm:js-yaml@3.4.6",
+    "jointjs": "npm:jointjs@0.9.7",
+    "jquery": "@empty",
+    "js-yaml": "npm:js-yaml@3.5.3",
     "klayjs": "npm:klayjs@0.3.2",
+    "lodash": "@empty",
     "pixi.js": "npm:pixi.js@3.0.6",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -87,10 +87,8 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:argparse@1.0.3": {
-      "assert": "github:jspm/nodelibs-assert@0.1.0",
+    "npm:argparse@1.0.6": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "lodash": "npm:lodash@3.10.1",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "sprintf-js": "npm:sprintf-js@1.0.3",
@@ -103,14 +101,14 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
-    "npm:babel-runtime@5.8.34": {
+    "npm:babel-runtime@5.8.35": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:backbone@1.2.1": {
       "process": "github:jspm/nodelibs-process@0.1.2",
       "underscore": "npm:underscore@1.8.3"
     },
-    "npm:backbone@1.2.3": {
+    "npm:backbone@1.3.1": {
       "process": "github:jspm/nodelibs-process@0.1.2",
       "underscore": "npm:underscore@1.8.3"
     },
@@ -133,7 +131,7 @@ System.config({
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:clean-css@3.4.9": {
+    "npm:clean-css@3.4.10": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "commander": "npm:commander@2.8.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -210,7 +208,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:esprima@2.7.1": {
+    "npm:esprima@2.7.2": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
@@ -230,7 +228,7 @@ System.config({
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:jointjs@0.9.5": {
+    "npm:jointjs@0.9.7": {
       "backbone": "npm:backbone@1.2.1",
       "dagre": "npm:dagre@0.7.4",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -242,11 +240,10 @@ System.config({
     "npm:jquery@2.1.3": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:js-yaml@3.4.6": {
-      "argparse": "npm:argparse@1.0.3",
-      "esprima": "npm:esprima@2.7.1",
+    "npm:js-yaml@3.5.3": {
+      "argparse": "npm:argparse@1.0.6",
+      "esprima": "npm:esprima@2.7.2",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "inherit": "npm:inherit@2.2.2",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
