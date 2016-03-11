@@ -86,8 +86,6 @@ var Factory = {
             const id = cell.get('id');
             const bbox = cell.getBBox();
 
-            window.cc = cell;
-
             kg.children.push({
                 id: id,
                 width: bbox.width,
@@ -112,7 +110,6 @@ var Factory = {
 
         for (let link of graph.getLinks()) {
             const id = link.get('id');
-            window.ll = link;
             const source = graph.getCell(link.get('source').id);
             const sourceId = source.get('id');
             const sourcePort = link.get("source").port; // === "out") ? "out": "in";
@@ -157,8 +154,9 @@ var Factory = {
             switch (cell.get('type')) {
                 case 'wellaged.Argument':
                     yaml.arguments[id] = {
-                        // FIXME fix carneades.
-                        //text: text,
+                        meta: {
+                            text: text
+                        },
                         premises: [],
                         conclusion: undefined,
                         undercutter: undefined
@@ -167,14 +165,18 @@ var Factory = {
                 case 'wellaged.Statement':
                     yaml.statements[id] = {
                         label: cell.get("label") || 'out',
-                        text: text,
-                        assumed: cell.get('assumed')
+                        meta: {
+                            text: text
+                        },
+                        assumed: cell.get('assumed') || false
                     };
                     break;
                 case 'wellaged.Issue':
                     yaml.issues[id] = {
                         positions: [],
-                        text: text
+                        meta: {
+                            text: text
+                        },
                     };
                     break;
             }

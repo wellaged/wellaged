@@ -11,6 +11,7 @@ joint.shapes.wellaged.DefaultLink = joint.dia.Link.extend({
         this.on('change:target', () => {
             this.attr('.connection/stroke-dasharray', this.get('target').port === 'undercutter' ? '5 2' : '');
         });
+        this.trigger('change:target');
     },
     defaults: joint.util.deepSupplement({
         router: {

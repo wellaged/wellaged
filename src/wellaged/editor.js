@@ -51,6 +51,16 @@ var EditorView = Backbone.View.extend({
                 new joint.shapes.wellaged.DefaultLink()
         });
 
+
+        this.paper.on('cell:pointerclick', (cellView, evt, x, y) => {
+            this.trigger('node:pointerclick', cellView, evt, x, y);
+        });
+
+        this.paper.on('blank:pointerclick', (evt, x, y) => {
+            this.trigger('node:pointerclick', undefined, evt, x, y);
+        });
+
+
         return;
         this.paper.on('cell:pointerdown', (cellView, evt, x, y) => {
             if (cellView.model.attributes.type === 'link') {
@@ -92,6 +102,11 @@ var EditorView = Backbone.View.extend({
         return s;
     },
 
+    deleteNode: function(node) {
+        this.graph.removeLinks(node.model);
+        node.remove();
+    },
+
     graphToYAML: function() {
         let yaml = Factory.createYAML(this.graph);
         return yaml;
@@ -115,12 +130,12 @@ var EditorView = Backbone.View.extend({
         this.clear();
 
         _.each(yaml.statements, (stmt, id) => {
-            const s = Factory.createStatement(stmt, id, _.includes(yaml.assumptions, id));
+          const s = Factory.createStatement(stmt.meta ? stmt.meta.text : stmt.text, id, _.includes(yaml.assumptions, id));
             this.graph.addCell(s);
         });
 
         _.each(yaml.arguments, (arg, id) => {
-            const a = Factory.createArgument(id, id);
+          const a = Factory.createArgument(arg.meta ? arg.meta.text : arg.text, id);
             this.graph.addCell(a);
             this.graph.addCell(helper(id, arg.conclusion));
             for (let premise of arg.premises) this.graph.addCell(helper(premise, id));
@@ -130,7 +145,7 @@ var EditorView = Backbone.View.extend({
         });
 
         _.each(yaml.issues, (issue, id) => {
-            const i = Factory.createIssue(id, id);
+          const i = Factory.createIssue(issue.meta ? issue.meta.text : issue.text, id);
 
             this.graph.addCell(i);
 
