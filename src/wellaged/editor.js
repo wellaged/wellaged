@@ -153,7 +153,7 @@ var EditorView = Backbone.View.extend({
 
         });
 
-        this.doAutoLayout();
+        //this.doAutoLayout();
     },
 
     doAutoLayout: function() {
