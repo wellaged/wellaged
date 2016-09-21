@@ -1,6 +1,6 @@
 {
   "name": "wellaged",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "WellAgEd Editor",
   "main": "dist/index.html",
   "homepage": "https://github.com/wellaged/wellaged#readme",
@@ -85,7 +85,7 @@
     },
     "dependencies": {
       "backbone": "npm:backbone@^1.2.3",
-      "css": "github:systemjs/plugin-css@^0.1.20",
+      "css": "github:systemjs/plugin-css@^0.1.27",
       "jointjs": "npm:jointjs@^0.9.5",
       "js-yaml": "npm:js-yaml@^3.4.6",
       "klayjs": "npm:klayjs@^0.3.2"
