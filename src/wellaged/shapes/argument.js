@@ -11,11 +11,12 @@ joint.shapes.wellaged.Argument = joint.shapes.wellaged.Basic.extend({
   defaults: joint.util.deepSupplement({
 
     type: 'wellaged.Argument',
-    size: {
-      width: 100,
-      height: 60
+    attrs: {
+        '.body': {
+            rx: 15,
+            ry: 15
+        }
     },
-
     inPorts: [{
       id: 'in',
       label: 'In'

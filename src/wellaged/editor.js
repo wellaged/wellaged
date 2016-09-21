@@ -104,10 +104,23 @@ var EditorView = Backbone.View.extend({
 
     deleteNode: function(node) {
         this.graph.removeLinks(node.model);
-        node.remove();
+        for(var i=0; i<this.graph.getElements().length; i++){
+          if(this.graph.getElements()[i].id == node.model.id){
+            this.graph.getElements()[i].remove();
+          }
+        }
     },
 
     graphToYAML: function() {
+      var length = this.graph.getElements().length;
+        for(var i=0; i<length; i++){
+          if(this.graph.getElements()[i].get('type') == 'wellaged.Argument'){
+            if(this.graph.getConnectedLinks(this.graph.getElements()[i]).length == 0){
+              this.graph.removeLinks(this.graph.getElements()[i]);
+              this.graph.getElements()[i].remove();
+            }
+          }
+        }
         let yaml = Factory.createYAML(this.graph);
         return yaml;
     },
@@ -130,7 +143,7 @@ var EditorView = Backbone.View.extend({
         this.clear();
 
         _.each(yaml.statements, (stmt, id) => {
-          const s = Factory.createStatement(stmt.meta ? stmt.meta.text : stmt.text, id, _.includes(yaml.assumptions, id));
+          const s = Factory.createStatement(stmt.meta ? stmt.meta.text : stmt.text, id, stmt.assumed);
             this.graph.addCell(s);
         });
 
@@ -153,7 +166,7 @@ var EditorView = Backbone.View.extend({
 
         });
 
-        //this.doAutoLayout();
+        this.doAutoLayout();
     },
 
     doAutoLayout: function() {
@@ -179,6 +192,8 @@ var EditorView = Backbone.View.extend({
             console.dir(output);
             throw "carneades error :/";
         }
+
+        //console.log("result " + output.result);
 
         Factory.applyYAML(this.graph, output.result);
     },

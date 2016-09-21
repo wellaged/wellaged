@@ -157,6 +157,7 @@ var Factory = {
                         meta: {
                             text: text
                         },
+                        scheme: "factorized",
                         premises: [],
                         conclusion: undefined,
                         undercutter: undefined
@@ -221,6 +222,26 @@ var Factory = {
         _.each(yaml.statements, (statement, key) => {
             graph.getCell(key).set('label', statement.label);
         });
+
+        var length = graph.getElements().length;
+        for(var i=0; i<length; i++) {
+          if (graph.getElements()[i].get('type') == 'wellaged.Argument') {
+            if (graph.getConnectedLinks(graph.getElements()[i]).length != 0) {
+              var weight = "";
+              _.each(yaml.arguments, (argument, key) => {
+                if(key == graph.getElements()[i].get('id')){
+                  weight = argument.weight;
+                }
+              });
+              graph.getConnectedLinks(graph.getElements()[i])[0].label(0, {
+                position: .5,
+                attrs: {
+                  text: {fill: 'black', text: weight}
+                }
+              });
+            }
+          }
+        }
     }
 };
 

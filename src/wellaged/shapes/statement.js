@@ -14,11 +14,9 @@ joint.shapes.wellaged.Statement = joint.shapes.wellaged.Basic.extend({
     defaults: joint.util.deepSupplement({
 
         type: 'wellaged.Statement',
-        attrs: {
-            '.body': {
-                rx: 15,
-                ry: 15
-            }
+        size: {
+          width: 100,
+          height: 60
         },
         inPorts: [{
             id: 'in',
