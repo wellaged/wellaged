@@ -45,7 +45,7 @@ var Factory = {
         });
     },
 
-    createArgument: function(text, id) {
+    createArgument: function(text, id, scheme) {
         return new joint.shapes.wellaged.Argument({
             position: {
                 x: 400 - 50,
@@ -56,7 +56,8 @@ var Factory = {
                 height: 70
             },
             id: (id !== null) ? id : guid(),
-            text: text
+            text: text,
+            scheme: scheme || 'linked'
         });
     },
 
@@ -157,7 +158,7 @@ var Factory = {
                         meta: {
                             text: text
                         },
-                        scheme: "factorized",
+                        scheme: cell.get('scheme') || 'linked',
                         premises: [],
                         conclusion: undefined,
                         undercutter: undefined

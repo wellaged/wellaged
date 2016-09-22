@@ -148,7 +148,7 @@ var EditorView = Backbone.View.extend({
         });
 
         _.each(yaml.arguments, (arg, id) => {
-          const a = Factory.createArgument(arg.meta ? arg.meta.text : arg.text, id);
+          const a = Factory.createArgument(arg.meta ? arg.meta.text : arg.text, id, arg.scheme);
             this.graph.addCell(a);
             this.graph.addCell(helper(id, arg.conclusion));
             for (let premise of arg.premises) this.graph.addCell(helper(premise, id));
