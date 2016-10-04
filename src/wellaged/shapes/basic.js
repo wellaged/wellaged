@@ -70,8 +70,14 @@ joint.shapes.wellaged.Basic = joint.shapes.basic.Generic.extend(_.extend({}, joi
         joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         joint.shapes.basic.PortsModelInterface.initialize.apply(this, arguments);
 
+
+
         this.on('change:text', function() {
-            this.attr('text/text', this.get('text'));
+            var wraptext = joint.util.breakText(this.get('text') ,{
+              width: 250,
+              height: 200
+            });
+            this.attr('text/text', wraptext);
         }, this);
 
         this.trigger('change:text');
@@ -126,6 +132,13 @@ joint.shapes.wellaged.BasicView = joint.dia.ElementView.extend(_.extend({}, join
         var dim = measureText(this.model.get('text'), {
             fontSize: this.model.attr('text/font-size')
         });
+
+      if((dim.width + 50) <= 250){
         this.model.resize(dim.width + 50, dim.height + 50);
+      }else if((dim.width/6) + 0.1 <= 200){
+        this.model.resize(250, 60 + (dim.width/12));
+      }else{
+        this.model.resize(250, 200);
+      }
     }
 }));

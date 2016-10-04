@@ -14,7 +14,7 @@ import './shapes/argument';
 
 var Factory = {
 
-    createIssue: function(text, id) {
+    createIssue: function(text, id, description) {
         return new joint.shapes.wellaged.Issue({
             position: {
                 x: 400 - 50,
@@ -25,11 +25,12 @@ var Factory = {
                 height: 70
             },
             text: text,
+            description: description || '',
             id: (id !== null) ? id : guid()
         });
     },
 
-    createStatement: function(text, id, assumed) {
+    createStatement: function(text, id, assumed, description) {
         return new joint.shapes.wellaged.Statement({
             position: {
                 x: 400 - 50,
@@ -41,11 +42,12 @@ var Factory = {
             },
             id: (id !== null) ? id : guid(),
             text: text,
+            description: description || '',
             assumed: (assumed !== null) ? assumed : (Math.trunc(Math.random() * 100) % 2 == 1)
         });
     },
 
-    createArgument: function(text, id, scheme) {
+    createArgument: function(text, id, scheme, description) {
         return new joint.shapes.wellaged.Argument({
             position: {
                 x: 400 - 50,
@@ -57,6 +59,7 @@ var Factory = {
             },
             id: (id !== null) ? id : guid(),
             text: text,
+            description: description || '',
             scheme: scheme || 'linked'
         });
     },
@@ -156,7 +159,8 @@ var Factory = {
                 case 'wellaged.Argument':
                     yaml.arguments[id] = {
                         meta: {
-                            text: text
+                            text: text,
+                            description: cell.get("description") || ''
                         },
                         scheme: cell.get('scheme') || 'linked',
                         premises: [],
@@ -168,7 +172,8 @@ var Factory = {
                     yaml.statements[id] = {
                         label: cell.get("label") || 'out',
                         meta: {
-                            text: text
+                            text: text,
+                            description: cell.get("description") || ''
                         },
                         assumed: cell.get('assumed') || false
                     };
@@ -177,7 +182,8 @@ var Factory = {
                     yaml.issues[id] = {
                         positions: [],
                         meta: {
-                            text: text
+                            text: text,
+                            description: cell.get("description") || ''
                         },
                     };
                     break;

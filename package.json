@@ -1,6 +1,6 @@
 {
   "name": "wellaged",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "WellAgEd Editor",
   "main": "dist/index.html",
   "homepage": "https://github.com/wellaged/wellaged#readme",

@@ -84,20 +84,20 @@ var EditorView = Backbone.View.extend({
         });
     },
 
-    addIssue: function(label) {
-        let i = Factory.createIssue(label);
+    addIssue: function(label, description) {
+        let i = Factory.createIssue(label, description);
         this.graph.addCell(i);
         return i;
     },
 
-    addArgument: function(label) {
-        let a = Factory.createArgument(label);
+    addArgument: function(label, description) {
+        let a = Factory.createArgument(label, description);
         this.graph.addCell(a);
         return a;
     },
 
-    addStatement: function(label, assumed) {
-        let s = Factory.createStatement(label, assumed);
+    addStatement: function(label, assumed, description) {
+        let s = Factory.createStatement(label, assumed, description);
         this.graph.addCell(s);
         return s;
     },
@@ -143,12 +143,12 @@ var EditorView = Backbone.View.extend({
         this.clear();
 
         _.each(yaml.statements, (stmt, id) => {
-          const s = Factory.createStatement(stmt.meta ? stmt.meta.text : stmt.text, id, stmt.assumed);
+          const s = Factory.createStatement(stmt.meta ? stmt.meta.text : stmt.text, id, stmt.assumed, stmt.meta.description);
             this.graph.addCell(s);
         });
 
         _.each(yaml.arguments, (arg, id) => {
-          const a = Factory.createArgument(arg.meta ? arg.meta.text : arg.text, id, arg.scheme);
+          const a = Factory.createArgument(arg.meta ? arg.meta.text : arg.text, id, arg.scheme, arg.meta.description);
             this.graph.addCell(a);
             this.graph.addCell(helper(id, arg.conclusion));
             for (let premise of arg.premises) this.graph.addCell(helper(premise, id));
@@ -158,7 +158,7 @@ var EditorView = Backbone.View.extend({
         });
 
         _.each(yaml.issues, (issue, id) => {
-          const i = Factory.createIssue(issue.meta ? issue.meta.text : issue.text, id);
+          const i = Factory.createIssue(issue.meta ? issue.meta.text : issue.text, id, issue.meta.description);
 
             this.graph.addCell(i);
 
